@@ -8,7 +8,7 @@ def expanding_standardize(features:pd.DataFrame,min_periods=36)->pd.DataFrame:
     for c in FEATURES:
         mean=features[c].expanding(min_periods=min_periods).mean().shift(1)
         std=features[c].expanding(min_periods=min_periods).std().shift(1)
-        out[c]=(features[c]-mean)/std.replace(0,float("nan"))
+        out[c]=(features[c].shift(1)-mean)/std.replace(0,float("nan"))
     return out
 
 def classify_regimes(features:pd.DataFrame,min_periods=36)->pd.DataFrame:
